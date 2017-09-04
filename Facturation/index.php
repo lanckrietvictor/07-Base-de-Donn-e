@@ -20,6 +20,16 @@ $table_persons = $pdo->query("
 	LIMIT 5");
 $persons_sorted_by_date = $table_persons->fetchAll(PDO::FETCH_ASSOC);
 
+//display five latest firms
+$table_firms = $pdo->query("
+	SELECT factures.id_societe, societes.nom_societe, factures.date_facture
+	FROM factures
+	INNER JOIN societes
+	ON factures.id_societe = societes.id_societe
+	ORDER BY factures.date_facture DESC
+	LIMIT 5");
+$societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
+
 
 /*if(isset($_POST["submit"])) {        //used to fill up database
 		stock($pdo);
@@ -123,24 +133,23 @@ $persons_sorted_by_date = $table_persons->fetchAll(PDO::FETCH_ASSOC);
 
 	</table>
 
-	<h2>5 dernières sociéts</h2>
+	<h2>5 dernières sociétés</h2>
 
 	<table>
 	<tr>
+		<th>ID de la société</th>
 		<th>Nom de la société</th>
-		<th>Date de la facture</th>
-		<th>Prénom de la personne</th>
 		<th>Date de la facture</th>
 
 	<?php 
 
-	for ($i=0; $i < count($persons_sorted_by_date); $i++) { 
+	for ($i=0; $i < count($societes_sorted_by_date); $i++) { 
 		echo "<tr>";
-		foreach ($persons_sorted_by_date[$i] as $key => $value) {
+		foreach ($societes_sorted_by_date[$i] as $key => $value) {
 			echo "<td>".$value."</td>";
 		}
 
-		echo "<td style='border: none;'><button name='linkToDetailPerson' class='detail' value='".$persons_sorted_by_date[$i]["id_personne"]."'onclick='linkToDetailPerson(this)'>Information détaillée</button></td>";
+		echo "<td style='border: none;'><button name='linkToDetailSociete' class='detail' value='".$societes_sorted_by_date[$i]["id_societe"]."'onclick='linkToDetailSociete(this)'>Information détaillée</button></td>";
 
 		echo "</tr>";
 	}
@@ -148,6 +157,8 @@ $persons_sorted_by_date = $table_persons->fetchAll(PDO::FETCH_ASSOC);
 	?>
 
 	</table>
+
+
 	
 	<!--<form action="index.php" method="post"> 
 			numero_facture: <input type="text" name="numero_facture">
@@ -169,6 +180,11 @@ $persons_sorted_by_date = $table_persons->fetchAll(PDO::FETCH_ASSOC);
 		function linkToDetailPerson (objButton) {
 			var clicked = objButton.value;
 			location.href = "detailcontact.php?detail="+clicked;
+		}
+
+		function linkToDetailSociete (objButton) {
+			var clicked = objButton.value;
+			location.href = "detailsociete.php?detail="+clicked;
 		}
 	</script>
 </html>
