@@ -30,23 +30,6 @@ $table_firms = $pdo->query("
 	LIMIT 5");
 $societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
 
-
-/*if(isset($_POST["submit"])) {        //used to fill up database
-		stock($pdo);
-	}
-
-	function stock($pdo) {
-
-		$nf = $pdo->quote($_POST["numero_facture"]);
-		$df = $pdo->quote($_POST["date_facture"]);
-		$idp = $pdo->quote($_POST["id_personne"]);
-		$idc = $pdo->quote($_POST["id_societe"]);
-
-			$sql = "INSERT INTO factures (numero_facture, date_facture, id_personne, id_societe) VALUES ($nf, $df, $idp, $idc)";
-
-		$pdo->prepare($sql)->execute();
-	}*/
-
 ?>
 
 <!DOCTYPE html>
@@ -82,94 +65,83 @@ $societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
 	</div>
 	
 	<table>
-	<tr>
-		<th>ID de la facture</th>
-		<th>Numéro de la facture</th>
-		<th>Date de la facture</th>
-		<th>ID de la personne</th>
-		<th>ID de la société</th>
-	</tr>
+		<tr>
+			<th>ID de la facture</th>
+			<th>Numéro de la facture</th>
+			<th>Date de la facture</th>
+			<th>ID de la personne</th>
+			<th>ID de la société</th>
+		</tr>
 
-	<?php 
+		<?php 
 
-	for ($i=0; $i < 5; $i++) { 
+		for ($i=0; $i < 5; $i++) { 
 
-		foreach ($factures_sorted_by_date[$i] as $key => $value) {
-			echo "<td>".$value."</td>";
+			foreach ($factures_sorted_by_date[$i] as $key => $value) {
+				echo "<td>".$value."</td>";
+			}
+
+			echo "<td style='border: none;'><button name='linkToDetailFacture' class='detail' value='".$factures_sorted_by_date[$i]["id_facture"]."'onclick='linkToDetailFacture(this)'>Information détaillée</button></td>";
+
+			echo "</tr>";
 		}
 
-		echo "<td style='border: none;'><button name='linkToDetailFacture' class='detail' value='".$factures_sorted_by_date[$i]["id_facture"]."'onclick='linkToDetailFacture(this)'>Information détaillée</button></td>";
-
-		echo "</tr>";
-	}
-
-	?>
+		?>
 
 	</table>
 
 	<h2>5 dernières personnes</h2>
 
 	<table>
-	<tr>
-		<th>ID de la personne</th>
-		<th>Nom de la personne</th>
-		<th>Prénom de la personne</th>
-		<th>Date de la facture</th>
+		<tr>
+			<th>ID de la personne</th>
+			<th>Nom de la personne</th>
+			<th>Prénom de la personne</th>
+			<th>Date de la facture</th>
+		</tr>
 
-	<?php 
+		<?php 
 
-	for ($i=0; $i < count($persons_sorted_by_date); $i++) { 
-		echo "<tr>";
-		foreach ($persons_sorted_by_date[$i] as $key => $value) {
-			echo "<td>".$value."</td>";
+		for ($i=0; $i < count($persons_sorted_by_date); $i++) { 
+			echo "<tr>";
+			foreach ($persons_sorted_by_date[$i] as $key => $value) {
+				echo "<td>".$value."</td>";
+			}
+
+			echo "<td style='border: none;'><button name='linkToDetailPerson' class='detail' value='".$persons_sorted_by_date[$i]["id_personne"]."'onclick='linkToDetailPerson(this)'>Information détaillée</button></td>";
+
+			echo "</tr>";
 		}
 
-		echo "<td style='border: none;'><button name='linkToDetailPerson' class='detail' value='".$persons_sorted_by_date[$i]["id_personne"]."'onclick='linkToDetailPerson(this)'>Information détaillée</button></td>";
-
-		echo "</tr>";
-	}
-
-	?>
+		?>
 
 	</table>
 
 	<h2>5 dernières sociétés</h2>
 
 	<table>
-	<tr>
-		<th>ID de la société</th>
-		<th>Nom de la société</th>
-		<th>Date de la facture</th>
+		<tr>
+			<th>ID de la société</th>
+			<th>Nom de la société</th>
+			<th>Date de la facture</th>
+		</tr>
 
-	<?php 
+		<?php 
 
-	for ($i=0; $i < count($societes_sorted_by_date); $i++) { 
-		echo "<tr>";
-		foreach ($societes_sorted_by_date[$i] as $key => $value) {
-			echo "<td>".$value."</td>";
+		for ($i=0; $i < count($societes_sorted_by_date); $i++) { 
+			echo "<tr>";
+			foreach ($societes_sorted_by_date[$i] as $key => $value) {
+				echo "<td>".$value."</td>";
+			}
+
+			echo "<td style='border: none;'><button name='linkToDetailSociete' class='detail' value='".$societes_sorted_by_date[$i]["id_societe"]."'onclick='linkToDetailSociete(this)'>Information détaillée</button></td>";
+
+			echo "</tr>";
 		}
 
-		echo "<td style='border: none;'><button name='linkToDetailSociete' class='detail' value='".$societes_sorted_by_date[$i]["id_societe"]."'onclick='linkToDetailSociete(this)'>Information détaillée</button></td>";
-
-		echo "</tr>";
-	}
-
-	?>
+		?>
 
 	</table>
-
-
-	
-	<!--<form action="index.php" method="post"> 
-			numero_facture: <input type="text" name="numero_facture">
-			<br>
-			date: <input type="date" name="date_facture">
-			<br>
-			id_personne: <input type="number" name="id_personne">
-			<br>
-			id_societe: <input type="number" name="id_societe">
-			<input type="submit" name="submit">
-		</form>-->
 
 	<script>
 		function linkToDetailFacture (objButton) {
@@ -187,4 +159,5 @@ $societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
 			location.href = "detailsociete.php?detail="+clicked;
 		}
 	</script>
+</body>
 </html>

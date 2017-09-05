@@ -3,7 +3,7 @@
 //Faire le line avec le base de donnée
 include "connection.php";
 
-$idf = $_GET["detail"];
+$idf = $_GET["detail"];		//Recuperate id of the person from url
 
 $sth = $pdo->query("SELECT * 
 	FROM factures 

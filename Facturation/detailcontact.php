@@ -3,17 +3,17 @@
 //Faire le line avec le base de donnée
 include "connection.php";
 
-$idf = $_GET["detail"];
+$idf = $_GET["detail"];		//Recuperate id of the person from url
 
 $sth = $pdo->query("SELECT personnes.id_personne, personnes.nom_personne, personnes.prenom_personne, personnes.tel_personne, personnes.email_personne, societes.nom_societe 
 	FROM personnes
 	INNER JOIN societes
 	ON personnes.id_societe = societes.id_societe
-	");
+	");						//Select required data from database
 
-$personne = $sth->fetchAll(PDO::FETCH_ASSOC);
+$personne = $sth->fetchAll(PDO::FETCH_ASSOC);	//Put data into 											easily accessible array
 
-$sth2 = $pdo->query("SELECT * FROM factures WHERE id_personne = ".$idf);
+$sth2 = $pdo->query("SELECT * FROM factures WHERE id_personne = ".$idf);					//Select all data from table factures 								for specific person
 $factures_by_person = $sth2->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -41,7 +41,7 @@ $factures_by_person = $sth2->fetchAll(PDO::FETCH_ASSOC);
 
 	<?php  
 
-	echo  "<h1>".$personne[0]["prenom_personne"]." ".$personne[0]["nom_personne"]."</h1>";
+	echo  "<h1>".$personne[0]["prenom_personne"]." ".$personne[0]["nom_personne"]."</h1>";		//Make title personalised for 									by id
 
 	?>
 
@@ -63,7 +63,7 @@ $factures_by_person = $sth2->fetchAll(PDO::FETCH_ASSOC);
 		echo "<tr>";
 
 		foreach ($personne[0] as $key => $value) {
-			echo "<td>".$value."</td>";
+			echo "<td>".$value."</td>";		//Table with all data 									on one person
 		}
 
 		echo "<tr>";
@@ -91,7 +91,7 @@ $factures_by_person = $sth2->fetchAll(PDO::FETCH_ASSOC);
 
 			foreach ($factures_by_person[$i] as $key => $value) {
 				echo "<td>".$value."</td>";
-			}
+			}							//All factures made by this 							person
 
 			echo "</tr>";
 
