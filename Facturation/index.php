@@ -50,6 +50,11 @@ $societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
 	table {
 		width: 100%;
 	}
+
+	a {
+		text-decoration: none;
+		color: black;
+	}
 </style>
 <body>
 	<h1>
@@ -89,6 +94,8 @@ $societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
 		?>
 
 	</table>
+	<br>
+	<hr>
 
 	<h2>5 dernières personnes</h2>
 
@@ -116,6 +123,8 @@ $societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
 		?>
 
 	</table>
+	<br>
+	<hr>
 
 	<h2>5 dernières sociétés</h2>
 
@@ -142,6 +151,11 @@ $societes_sorted_by_date = $table_firms->fetchAll(PDO::FETCH_ASSOC);
 		?>
 
 	</table>
+
+	<br>
+
+	<button><a href="client.php"><h3>Client details</h3></a></button>
+	<button><a href="fournisseur.php"><h3>Fournisseur details</h3></a></button>
 
 	<script>
 		function linkToDetailFacture (objButton) {

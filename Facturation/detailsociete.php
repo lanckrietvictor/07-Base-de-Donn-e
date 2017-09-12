@@ -3,7 +3,7 @@
 //Faire le line avec le base de donnée
 include "connection.php";
 
-$idf = $_GET["detail"];		//Recuperate id of the person from url
+$idf = $_GET["detail"];		//Recuperate id of the societe from url
 
 $sth = $pdo->query("
 	SELECT societes.*,  type.type
@@ -19,6 +19,7 @@ $societes = $sth->fetchAll(PDO::FETCH_ASSOC);
 <html>
 <head>
 	<title>Societes</title>
+	<meta charset="utf-8">
 </head>
 <style>
 	table, th, tr, td {
@@ -56,14 +57,16 @@ $societes = $sth->fetchAll(PDO::FETCH_ASSOC);
 		echo "<tr>";
 
 		foreach ($societes[0] as $key => $value) {
-			echo "<td>".$value."</td>";		//Table with all data 									on one person
+			if($key != "id_type"){
+			echo "<td>".$value."</td>";		//Table with all							data on one person
 		}
+	}
 
-		echo "<tr>";
+	echo "<tr>";
 
-		?>
+	?>
 
-	</table>
+</table>
 
 </body>
 </html>

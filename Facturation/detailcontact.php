@@ -39,9 +39,11 @@ $factures_by_person = $sth2->fetchAll(PDO::FETCH_ASSOC);
 </style>
 <body>
 
-	<?php  
+	<?php 
 
-	echo  "<h1>".$personne[0]["prenom_personne"]." ".$personne[0]["nom_personne"]."</h1>";		//Make title personalised for 									by id
+	$idf--; 
+
+	echo  "<h1>".$personne[$idf]["prenom_personne"]." ".$personne[$idf]["nom_personne"]."</h1>";		//Make title personalised for 									by id
 
 	?>
 
@@ -62,7 +64,7 @@ $factures_by_person = $sth2->fetchAll(PDO::FETCH_ASSOC);
 
 		echo "<tr>";
 
-		foreach ($personne[0] as $key => $value) {
+		foreach ($personne[$idf] as $key => $value) {
 			echo "<td>".$value."</td>";		//Table with all data 									on one person
 		}
 
